@@ -33,6 +33,8 @@ namespace SGUI {
             }
         }
 
+        public bool Visible = true;
+
         public readonly BindingList<SElement> Children = new BindingList<SElement>();
         public readonly List<SElement> AdoptedChildren = new List<SElement>();
         public readonly List<SElement> DisposingChildren = new List<SElement>();
@@ -177,6 +179,9 @@ namespace SGUI {
         }
 
         public void Update() {
+            if (!Visible)
+                return;
+
             Main = this;
             if (!Backend.Initialized) {
                 return;
@@ -213,6 +218,9 @@ namespace SGUI {
 
         protected bool _ScheduledBackendInit;
         public void OnGUI() {
+            if (!Visible)
+                return;
+
             Main = this;
             if (!Backend.RenderOnGUI) {
                 return;

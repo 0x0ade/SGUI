@@ -29,6 +29,17 @@ namespace SGUI {
             }
         }
 
+        public SElement Previous {
+            get {
+                if (Parent == null)
+                    return null;
+                int i = Parent.Children.IndexOf(this) - 1;
+                if (i < 0 || Parent.Children.Count <= i)
+                    return null;
+                return Parent.Children[i];
+            }
+        }
+
         public readonly BindingList<SElement> Children = new BindingList<SElement>();
         public SElement this[int id] {
             get {

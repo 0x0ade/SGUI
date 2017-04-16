@@ -436,7 +436,7 @@ namespace SGUI {
                                         editor.cursorIndex = index;
                                     }
 
-                                    editor.UpdateScrollOffsetIfNeeded(null);
+                                    editor.UpdateScrollOffsetIfNeeded();
                                     return true;
 
                                 } else {
