@@ -92,7 +92,8 @@ namespace SGUI {
         public override void UpdateChildrenStyles() {
             WindowTitleBar.Root = Root;
             WindowTitleBar.Parent = this;
-            WindowTitleBar.UpdateStyle();
+            if (WindowTitleBar.Enabled)
+                WindowTitleBar.UpdateStyle();
 
             base.UpdateChildrenStyles();
         }

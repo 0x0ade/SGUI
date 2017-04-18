@@ -150,7 +150,8 @@ namespace SGUI {
                     // TODO individual scheduled updates
                     _ScheduledUpdateStyle = true;
                 } else {
-                    child.UpdateStyle();
+                    if (child.Enabled)
+                        child.UpdateStyle();
                 }
                 int disposeIndex = DisposingChildren.IndexOf(child);
                 if (0 <= disposeIndex) {
@@ -174,7 +175,8 @@ namespace SGUI {
                 SElement child = Children[i];
                 child.Root = this;
                 child.Parent = null;
-                child.UpdateStyle();
+                if (child.Enabled)
+                    child.UpdateStyle();
             }
         }
 
@@ -191,7 +193,8 @@ namespace SGUI {
                 SElement child = Children[i];
                 child.Root = this;
                 child.Parent = null;
-                child.Update();
+                if (child.Enabled)
+                    child.Update();
             }
 
             if (AdoptedChildren.Count != 0) {

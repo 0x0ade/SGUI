@@ -40,6 +40,17 @@ namespace SGUI {
             }
         }
 
+        public SElement Next {
+            get {
+                if (Parent == null)
+                    return null;
+                int i = Parent.Children.IndexOf(this) + 1;
+                if (i < 0 || Parent.Children.Count <= i)
+                    return null;
+                return Parent.Children[i];
+            }
+        }
+
         public readonly BindingList<SElement> Children = new BindingList<SElement>();
         public SElement this[int id] {
             get {
@@ -178,8 +189,9 @@ namespace SGUI {
         }
 
         public virtual void HandleChange(object sender, ListChangedEventArgs e) {
-            if (Parent != null) Parent.HandleChange(null, null);
-            UpdateStyle();
+            if (Parent != null && Parent.Enabled) Parent.HandleChange(null, null);
+            if (Enabled)
+                UpdateStyle();
 
             if (sender == null || e == null) return;
 
@@ -191,7 +203,8 @@ namespace SGUI {
                     if (0 <= disposeIndex) {
                         Root.DisposingChildren.RemoveAt(disposeIndex);
                     }
-                    child.UpdateStyle();
+                    if (child.Enabled)
+                        child.UpdateStyle();
 
                 } else if (e.ListChangedType == ListChangedType.ItemDeleted) {
                     // TODO Dispose.
@@ -259,7 +272,8 @@ namespace SGUI {
                 SElement child = Children[i];
                 child.Root = Root;
                 child.Parent = this;
-                child.UpdateStyle();
+                if (child.Enabled)
+                    child.UpdateStyle();
             }
         }
 
@@ -276,7 +290,8 @@ namespace SGUI {
                 SElement child = Children[i];
                 child.Root = Root;
                 child.Parent = this;
-                child.Update();
+                if (child.Enabled)
+                    child.Update();
             }
         }
 
