@@ -672,11 +672,8 @@ namespace SGUI {
                 ((elem as SButton) == null ? new Vector2?() : (elem as SButton).IconScale) ??
                 Vector2.one;
 
-            float iconWidth = icon != null ? icon.width * iconScale.x : 0f;
+            float iconWidth = icon != null ? (icon.width * iconScale.x + 1f) : 0f;
             float iconHeight = icon != null ? icon.height * iconScale.y : 0f;
-            if (icon != null) {
-                iconWidth += 1f;
-            }
 
             if (text.Contains("\n")) {
                 string[] lines = text.Split('\n');

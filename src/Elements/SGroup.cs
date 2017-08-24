@@ -92,7 +92,8 @@ namespace SGUI {
         public override void UpdateChildrenStyles() {
             WindowTitleBar.Root = Root;
             WindowTitleBar.Parent = this;
-            WindowTitleBar.UpdateStyle();
+            if (WindowTitleBar.Enabled)
+                WindowTitleBar.UpdateStyle();
 
             base.UpdateChildrenStyles();
         }
@@ -142,10 +143,10 @@ namespace SGUI {
             }
 
             if (AutoLayoutVerticalStretch) {
-                elem.Size.x = Size.x;
+                elem.Size.x = InnerSize.x;
             }
             elem.Position = new Vector2(0f, _CurrentAutoLayoutVerticalY);
-            _CurrentAutoLayoutVerticalY += elem.Size.y + AutoLayoutPadding;
+            _CurrentAutoLayoutVerticalY += elem.InnerSize.y + AutoLayoutPadding;
 
             GrowToFit(elem);
         }
@@ -161,10 +162,10 @@ namespace SGUI {
             }
 
             if (AutoLayoutVerticalStretch) {
-                elem.Size.y = Size.y;
+                elem.Size.y = InnerSize.y;
             }
             elem.Position = new Vector2(_CurrentAutoLayoutHorizontalX, 0f);
-            _CurrentAutoLayoutHorizontalX += elem.Size.x + AutoLayoutPadding;
+            _CurrentAutoLayoutHorizontalX += elem.InnerSize.x + AutoLayoutPadding;
 
             GrowToFit(elem);
         }
